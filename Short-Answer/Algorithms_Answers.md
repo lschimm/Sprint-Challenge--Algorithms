@@ -2,13 +2,13 @@
 
 ## Exercise I
 
-a) 
+a) O(n) -- linear (grows in direct proportion of the input size)
 
 
-b)
+b) O(n log n) -- logarithmic 
 
 
-c)
+c) O(n) -- linear (grows in direct proportion of the input size)
 
 ## Exercise II
 
