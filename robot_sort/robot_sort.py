@@ -97,7 +97,7 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-
+        # This is the loop will stop once the inner loop stop turning on the light.
         # Robot caaan...
         #   move left or right
         #   pick up items
@@ -125,42 +125,72 @@ class SortingRobot:
         # light off when moving left (swap)
         # light on when moving right
 
-        self.set_light_on()
+        # self.set_light_on()
 
-        while self.light_is_on():
-            # print({self._position})
-            if self.can_move_right():
-                if self.compare_item() == -1: # held item is less
-                    self.swap_item()
-                    self.move_right()
-                elif self.compare_item() == 1: # held item is greater
-                    self.move_right()
-                elif self.compare_item() == 0: # held item is equal
-                    self.move_right()
-                if self.compare_item() == None: # item is None
-                    self.swap_item()
-                    self.move_right()
-                    # print(f"moving", {self._item})
-            else self.set_light_off()
-            if self.light_is_off():
-                if self.can_move_left():
-                    self.set_light_on()
-                    if self.compare_item() == -1: # held item is less
-                        self.swap_item()
-                        self.move_left()
-                    elif self.compare_item() == 1: # held item is greater
-                        self.move_left()
-                    elif self.compare_item() == 0: # held item is equal
-                        self.move_left()
-                    if self.compare_item() == None: # item is None
-                        self.swap_item()
-                        self.move_left()
-                        # print(f"moving", {self._item})
-        else:
-            print("oh no....try again")
+        # while self.light_is_on():
+        #     # print({self._position})
+        #     if self.can_move_right():
+        #         if self.compare_item() == -1: # held item is less
+        #             self.swap_item()
+        #             self.move_right()
+        #         elif self.compare_item() == 1: # held item is greater
+        #             self.move_right()
+        #         elif self.compare_item() == 0: # held item is equal
+        #             self.move_right()
+        #         if self.compare_item() == None: # doesn't have an item
+        #             self.swap_item()
+        #             self.move_right()
+        #             # print(f"moving", {self._item})
+        #     else:
+        #         self.set_light_off()
+        #     if not self.light_is_on():
+        #         if self.can_move_left():
+        #             if self.compare_item() == -1: # held item is less
+        #                 self.swap_item()
+        #                 self.move_left()
+        #             elif self.compare_item() == 1: # held item is greater
+        #                 self.move_left()
+        #             elif self.compare_item() == 0: # held item is equal
+        #                 self.move_left()
+        #             if self.compare_item() == None: # doesn't have an item
+        #                 self.swap_item()
+        #                 self.move_left()
+        #                 print(f"moving", {self._item})
+        # else:
+        #     print("oh no....try again")
 
 
         # plan 3!
+
+        while not self.light_is_on():
+            self.set_light_on()
+            while self.can_move_right(): # light is on and moving right
+                # grabbin' dem items
+                self.swap_item()
+                self.move_right()
+                # If the held item's value is greater, return 1.
+                # all we care about is the greater value || plus 1's
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    self.set_light_off()
+                    # swapped!
+                # If the held item's value is less, return -1.
+                else:
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    # nooooo swapping done
+            # keep looping until can't move left no more
+            if not self.can_move_right():
+                while self.can_move_left():
+                    self.move_left() # while loops continuously moves left until it breaks
+                    if not self.can_move_left():
+                        break # can't move left, breaks
+    
+        return self 
         
 
 
