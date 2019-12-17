@@ -110,19 +110,64 @@ class SortingRobot:
         # we'll need two loops
 
         # 
-        self.set_light_on() # have the light on at the start
+        # self.set_light_on() # have the light on at the start
+
+        # while self.light_is_on():
+        #     if self.can_move_left(): # if robot can move to the left,
+        #         self.move_left()     # move left, left, left
+        #         self.set_light_off()
+        #     while self.compare_item() == 1:
+        #         self.swap_item() 
+        #         self.move_right()
+        #     while self.compare_item == -1:
+        #         self.move_right
+        
+        # light off when moving left (swap)
+        # light on when moving right
+
+        self.set_light_on()
 
         while self.light_is_on():
-            if self.can_move_left(): # if robot can move to the left,
-                self.move_left()     # move left, left, left
-                self.set_light_off()
-            while self.compare_item() == 1:
-                self.swap_item()
-                self.move_right()
-            while self.compare_item == -1:
-                self.move_right
+            # print({self._position})
+            if self.can_move_right():
+                if self.compare_item() == -1: # held item is less
+                    self.swap_item()
+                    self.move_right()
+                elif self.compare_item() == 1: # held item is greater
+                    self.move_right()
+                elif self.compare_item() == 0: # held item is equal
+                    self.move_right()
+                if self.compare_item() == None: # item is None
+                    self.swap_item()
+                    self.move_right()
+                    # print(f"moving", {self._item})
+            else self.set_light_off()
+            if self.light_is_off():
+                if self.can_move_left():
+                    self.set_light_on()
+                    if self.compare_item() == -1: # held item is less
+                        self.swap_item()
+                        self.move_left()
+                    elif self.compare_item() == 1: # held item is greater
+                        self.move_left()
+                    elif self.compare_item() == 0: # held item is equal
+                        self.move_left()
+                    if self.compare_item() == None: # item is None
+                        self.swap_item()
+                        self.move_left()
+                        # print(f"moving", {self._item})
+        else:
+            print("oh no....try again")
+
+
+        # plan 3!
         
 
+
+        # If the held item's value is greater, return 1.
+        # If the held item's value is less, return -1.
+        # If the held item's value is equal, return 0.
+        # If either item is None, return None.
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
