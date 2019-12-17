@@ -159,7 +159,6 @@ class SortingRobot:
         # else:
         #     print("oh no....try again")
 
-
         # plan 3!
 
         while not self.light_is_on():
