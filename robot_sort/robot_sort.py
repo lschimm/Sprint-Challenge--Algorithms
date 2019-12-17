@@ -192,8 +192,6 @@ class SortingRobot:
     
         return self 
         
-
-
         # If the held item's value is greater, return 1.
         # If the held item's value is less, return -1.
         # If the held item's value is equal, return 0.
